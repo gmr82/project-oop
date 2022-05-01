@@ -3,8 +3,7 @@ package br.com.gmr82.project;
 import java.util.ArrayList;
 
 public class User
-{
-	
+{	
 	String id;
 	String password;
 	Profile profile;
@@ -18,11 +17,6 @@ public class User
 		this.id = username;
 	}
 
-	void edit ()
-	{
-		return;
-	}
-
 	boolean addTo (ArrayList <User> users)
 	{
 		if (users.contains(this))
@@ -31,6 +25,11 @@ public class User
 			return false;
 		}
 		return users.add(this);
+	}
+	
+	void edit ()
+	{
+		return;
 	}
 
 	@Override
@@ -43,4 +42,5 @@ public class User
 		return this.id.equals(other.id);
 	}
 
+	
 }
