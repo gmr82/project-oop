@@ -1,3 +1,5 @@
+.bin/
+
 # Compiled class file
 *.class
 
@@ -22,7 +24,7 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-# eclipse specific
+# Eclipse specific
 *.pydevproject
 .project
 .metadata
@@ -37,9 +39,7 @@ local.properties
 .classpath
 .settings/
 .loadpath
+*.launch # Locally stored "Eclipse launch configurations"
 
 # External tool builders
 .externalToolBuilders/
-
-# Locally stored "Eclipse launch configurations"
-*.launch
