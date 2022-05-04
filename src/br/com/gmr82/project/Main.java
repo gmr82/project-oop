@@ -12,7 +12,7 @@ import java.io.ObjectOutputStream;
 
 public class Main
 {
-	private String filePath = "project-oop/others/users";
+	private String filePath = "others/users";
 	private FileInputStream fis;
 	private ObjectInputStream ois;
 	private FileOutputStream fos;
