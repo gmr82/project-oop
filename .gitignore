@@ -1,4 +1,4 @@
-.project-oop/bin/
+.project-oop/bin/**
 
 # Compiled class file
 *.class
