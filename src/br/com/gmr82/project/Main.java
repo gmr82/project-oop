@@ -25,9 +25,9 @@ public class Main // implements Serializable
 	
 	public static void main (String[] args)
 	{
-		System.out.println("#-------------------TESTE-------------------#");
+		System.out.println("#---------------------------------TESTE---------------------------------#");
 		new Main().doMain(args); // turn the static method into an instance of Main
-		System.out.println("#-------------------------------------------#");
+		System.out.println("#-----------------------------------------------------------------------#");
 		new Main().test(args);
 	}
 	
@@ -82,7 +82,8 @@ public class Main // implements Serializable
 
 	boolean menu ()
 	{
-		System.out.print("Selecione:" +
+		
+		System.out.print("Selecione:                              [Principal]" +
 						"\n  1) Criar conta de usuário;" +
 						"\n  2) Listar usuários;" +
 						"\n  3) Pesquisar conta de usuário;" + 

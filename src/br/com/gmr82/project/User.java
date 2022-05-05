@@ -75,7 +75,7 @@ public class User implements Serializable
 
 	boolean edit ()
 	{
-		System.out.print("  Selecione:" +
+		System.out.print("  Selecione:                            [Edição de usuário: @" + this.getUsername() + "]" +
 					   "\n    1) Alterar username;" +
 					   "\n    2) Alterar senha;" +
 					   "\n    3) Editar perfil;" +

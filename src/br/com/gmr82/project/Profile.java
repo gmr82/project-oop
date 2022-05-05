@@ -6,6 +6,8 @@ import java.util.Iterator;
 
 public class Profile implements Serializable
 {
+	private static final long serialVersionUID = -5167574187842926423L;
+
 	private String name;
 
 	private ArrayList <Attribute> others;
@@ -34,7 +36,7 @@ public class Profile implements Serializable
 
 	boolean edit ()
 	{
-		System.out.print("    Selecione:" +
+		System.out.print("    Selecione:                          [Edição de perfil: " + this.getName() + "]" +
 				"\n      1) Alterar nome;" +
 				"\n      2) Adicionar atributo;" +
 				"\n      3) Alterar atributo;" +
