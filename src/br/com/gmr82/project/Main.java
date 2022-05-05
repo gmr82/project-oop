@@ -10,7 +10,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 
-public class Main
+public class Main // implements Serializable
 {
 	private String filePath = "others/users";
 	private FileInputStream fis;
@@ -18,9 +18,9 @@ public class Main
 	private FileOutputStream fos;
 	private ObjectOutputStream oos;
 	
-	private Scanner read;
+	static Scanner read;
 	
-	private ArrayList <User> users;
+	private static ArrayList <User> users;
 	
 	
 	public static void main (String[] args)
@@ -28,6 +28,12 @@ public class Main
 		System.out.println("#-------------------TESTE-------------------#");
 		new Main().doMain(args); // turn the static method into an instance of Main
 		System.out.println("#-------------------------------------------#");
+		new Main().test(args);
+	}
+	
+	private void test (String[] args)
+	{	
+		System.out.println("#TESTE#");
 	}
 
 	
@@ -48,12 +54,12 @@ public class Main
 			{
 				users = new ArrayList<User>();
 			}
-
 		}
 		catch (Exception exception)
 		{
 			exception.printStackTrace();
 		}
+		
 		
 		read = new Scanner(System.in);
 		while(menu());
@@ -71,8 +77,7 @@ public class Main
 		catch (Exception exception)
 		{
 			exception.printStackTrace();
-		}
-		
+		}	
 	}
 
 	boolean menu ()
@@ -82,7 +87,7 @@ public class Main
 						"\n  2) Listar usuários;" +
 						"\n  3) Pesquisar conta de usuário;" + 
 						"\n  4) Editar conta de usuário;" +
-						"\n  5) Remover conta de usuário;" +
+						"\n  5) Visualizar perfil de usuário;" +
 						"\n  0) Sair." +
 						"\n  >> ");
 		
@@ -95,7 +100,7 @@ public class Main
 				case 2: listAllUsers(); return true;
 				case 3: searchUser(); return true;
 				case 4: editUserAccount(); return true;
-				case 5: deleteUserAccount(); return true;
+				case 5: viewUserProfile(); return true;
 				default: System.out.println("  Opção inexistente!"); return true;
 			}
 		}
@@ -105,16 +110,27 @@ public class Main
 			return true;
 		}
 	}
-
 	
 	private void createUserAccount ()
 	{
 		System.out.print("# Criar conta de usuário #" +
 					   "\n  Username: ");
-		User user = new User(read.nextLine());
+		String username = read.nextLine();
+		
+		if (searchUser(username) != null)
+		{
+			System.out.println("  Username indisponível!");
+			return;
+		}
+		
+		User user = new User(username);
+		
 		System.out.print("  Senha: ");
 		user.setPassword(read.nextLine());
-		user.addTo(users);
+		
+		users.add(user);
+		
+		System.out.println("  Conta de usuário criada!");
 	}
 	
 	private void listAllUsers ()
@@ -144,7 +160,7 @@ public class Main
 		System.out.println("  " + user.toString());
 	}
 	
-	private User searchUser (String username)
+	static User searchUser (String username)
 	{
 		Iterator <User> iterator = users.iterator();
 	    User user;
@@ -175,53 +191,12 @@ public class Main
 			return;
 		}
 		
-		boolean control = true;
-		while (control)
-		{
-			System.out.print("  Selecione:" +
-					"\n    1) Editar username;" +
-					"\n    2) Alterar senha;" +
-					"\n    3) Editar perfil;" +
-					"\n    0) Sair." +
-					"\n    >> ");
-			try 
-			{
-				switch(Integer.parseInt(read.nextLine()))
-				{
-					case 0: control = false; break;
-					case 1:
-						System.out.print("    Novo username: ");
-						String newUsername = read.nextLine();
-						if (users.contains(searchUser(newUsername)))
-						{
-							System.out.println("    Username indisponível!");
-							break;
-						}
-						user.setUsername(newUsername);
-						System.out.println("    Username alterado!");
-						break;
-					case 2:
-						System.out.print("    Nova senha: ");
-						user.setPassword(read.nextLine());
-						System.out.println("    Senha alterada!");
-						break;
-					case 3:
-						// editar perfil
-						break;
-					default: System.out.println("    Opção inexistente!"); break;
-				}
-			}
-			catch (Exception exception)
-			{
-				System.out.println("    Valor inválido!");
-			}
-		}
-
+		while(user.edit());
 	}
-			
-	private void deleteUserAccount ()
+	
+	private void viewUserProfile ()
 	{
-		System.out.print("# Remover conta de usuário #" +
+		System.out.print("# Visualizar perfil de usuário #" +
 				   "\n  Username: ");
 		User user = searchUser(read.nextLine());
 		if (user == null)
@@ -229,19 +204,10 @@ public class Main
 			System.out.println("  Usuário não encontrado!");
 			return;
 		}
-		
-		System.out.print("  Senha de " + user.getUsername() + ": ");	
-		if (!user.checkPassword(read.nextLine()))
-		{
-			System.out.println("  Senha inválida!");
-			return;
-		}
-
-		deleteUserAccount(user);
-		System.out.println("  Conta de usuário removida!");
+		user.getProfile().show();
 	}
 	
-	private boolean deleteUserAccount (User user)
+	static boolean deleteUserAccount (User user)
 	{
 		Iterator <User> iterator = users.iterator();
 	    	    

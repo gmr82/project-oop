@@ -18,11 +18,12 @@ public class User implements Serializable
 	User (String username)
 	{
 		this.id = username;
+		this.profile = new Profile(username);
 	}
 	
 	String getUsername ()
 	{
-		return this.id;
+		return id;
 	}
 
 	void setUsername (String username)
@@ -30,26 +31,26 @@ public class User implements Serializable
 		this.id = username;
 	}
 
-	void setPassword (String password)
+	Profile getProfile ()
 	{
-		this.password = password;			
+		return profile;
 	}
-	
+
+	void setProfile (Profile profile)
+	{
+		this.profile = profile;
+	}
+
 	boolean checkPassword (String password)
 	{
 		return (this.password.equals(password));			
 	}
 	
-	boolean addTo (ArrayList <User> users)
+	void setPassword (String password)
 	{
-		if (users.contains(this))
-		{
-			System.out.println("  Username indisponível!");
-			return false;
-		}
-		return users.add(this);
+		this.password = password;			
 	}
-	
+
 	@Override
 	public boolean equals (Object object)
 	{
@@ -63,9 +64,78 @@ public class User implements Serializable
 	@Override
 	public String toString ()
 	{
-		return "@" + this.id + " [Senha: " + this.password + ", ...]";
+		return "@" + id;
 	}
 
+	
+	boolean addTo (ArrayList <User> users)
+	{
+		return users.add(this);
+	}
 
+	boolean edit ()
+	{
+		System.out.print("  Selecione:" +
+					   "\n    1) Alterar username;" +
+					   "\n    2) Alterar senha;" +
+					   "\n    3) Editar perfil;" +
+					   "\n    4) Remover conta;" +
+					   "\n    0) Sair." +
+					   "\n    >> ");
+		try 
+		{
+			switch(Integer.parseInt(Main.read.nextLine()))
+			{
+				case 0: return false;
+				case 1: changeUsername(); return true;
+				case 2: changePassword(); return true;	
+				case 3: editProfile(); return true;
+				case 4: remove(); return false;
+				default: System.out.println("    Opção inexistente!"); return true;
+			}
+		}
+		catch (Exception exception)
+		{
+				System.out.println("    Valor inválido!");
+		}
+		return true;
+	}
+	
+	void changeUsername ()
+	{
+		System.out.print("    Novo username: ");
+		String username = Main.read.nextLine();
+		if (Main.searchUser(username) != null)
+		{
+			System.out.println("    Username indisponível!");
+			return;
+		}
+		this.setUsername(username);
+		System.out.println("    Username alterado!");
+	}
+	
+	void changePassword ()
+	{
+		System.out.print("    Nova senha: ");
+		this.setPassword(Main.read.nextLine());
+		System.out.println("    Senha alterada!");
+	}
+	
+	void editProfile ()
+	{
+		Profile profile = this.getProfile();
+		while(profile.edit());
+	}
+	
+	void remove ()
+	{
+		System.out.print("    Confirme digitando \"" + this.getUsername() + "\" novamente: ");
+		if (this.getUsername().equals(Main.read.nextLine()))
+		{
+			Main.deleteUserAccount(this);
+			System.out.println("    Conta de usuário removida!");
+		}
+	}
+	
 	
 }

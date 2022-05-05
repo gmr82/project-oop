@@ -1,5 +1,3 @@
-.project-oop/bin/**
-
 # Compiled class file
 *.class
 
@@ -43,4 +41,4 @@ local.properties
 
 # External tool builders
 .externalToolBuilders/
-/project-oop/
+/bin/
