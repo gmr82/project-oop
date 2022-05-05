@@ -10,7 +10,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 
-public class Main // implements Serializable
+public class Main
 {
 	private String filePath = "others/users";
 	private FileInputStream fis;
@@ -25,17 +25,17 @@ public class Main // implements Serializable
 	
 	public static void main (String[] args)
 	{
-		System.out.println("#---------------------------------TESTE---------------------------------#");
+		System.out.println("#---------------------------------MAIN---------------------------------#");
 		new Main().doMain(args); // turn the static method into an instance of Main
-		System.out.println("#-----------------------------------------------------------------------#");
+		
 		new Main().test(args);
 	}
 	
 	private void test (String[] args)
 	{	
-		System.out.println("#TESTE#");
+		
+		System.out.println("---------------------------------#TESTE---------------------------------#");
 	}
-
 	
 	@SuppressWarnings("unchecked")
 	private void doMain (String[] args)
@@ -82,7 +82,6 @@ public class Main // implements Serializable
 
 	boolean menu ()
 	{
-		
 		System.out.print("Selecione:                              [Principal]" +
 						"\n  1) Criar conta de usuário;" +
 						"\n  2) Listar usuários;" +

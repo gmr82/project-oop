@@ -6,14 +6,17 @@ import java.util.ArrayList;
 
 public class User implements Serializable
 {	
+
+	private static final long serialVersionUID = -7376693414257860736L;
+	
 	private String id;
 	private String password;
 	
 	private Profile profile;
 	
-	private ArrayList <String> friends;
-	private ArrayList <String> communities;
-	private Feed feed;
+	//private ArrayList <String> friends;
+	//private ArrayList <String> communities;
+	//private Feed feed;
 
 	User (String username)
 	{
@@ -64,7 +67,7 @@ public class User implements Serializable
 	@Override
 	public String toString ()
 	{
-		return "@" + id;
+		return "@" + id + " " + profile.toString();
 	}
 
 	

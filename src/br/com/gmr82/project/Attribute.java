@@ -1,7 +1,6 @@
 package br.com.gmr82.project;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class Attribute implements Serializable
 {
@@ -33,17 +32,6 @@ public class Attribute implements Serializable
 	public void setValue (String value)
 	{
 		this.value = value;
-	}
-
-
-	public boolean isConstained (ArrayList <Attribute> attributes)
-	{
-		return attributes.contains(this);
-	}
-	
-	boolean addTo (ArrayList <Attribute> attributes)
-	{
-		return attributes.add(this);
 	}
 	
 	@Override

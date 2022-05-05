@@ -33,7 +33,6 @@ public class Profile implements Serializable
 		System.out.println(this.toString());
 	}
 	
-
 	boolean edit ()
 	{
 		System.out.print("    Selecione:                          [Edição de perfil: " + this.getName() + "]" +
