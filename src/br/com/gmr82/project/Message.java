@@ -42,8 +42,8 @@ public class Message implements Serializable
 	@Override
 	public String toString ()
 	{
-		return "[@" + getEmitter().getUsername() +
-			   "→@" + getReceiver().getUsername() +
+		return "[@" + getEmitter().getId() +
+			   "->@" + getReceiver().getId() +
 			   "]{" + getBody() + "}";
 	}
 	
@@ -51,5 +51,6 @@ public class Message implements Serializable
 	{
 		messages.forEach(message -> System.out.println("    " + message.toString()));
 	}
+	
 	
 }

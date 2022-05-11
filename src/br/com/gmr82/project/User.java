@@ -5,24 +5,19 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 
-public class User implements Serializable
+public class User extends Entity implements Serializable
 {	
-
 	private static final long serialVersionUID = -7376693414257860736L;
-	private String username;
 	private String password;
-	private Profile profile;
 	private ArrayList <User> friends;
 	private ArrayList <User> invitations;
 	//private ArrayList <Communitie> communities;
-	private Feed feed;
 
 	
 	User (String username, String password)
 	{
-		this.username = username;
+		super(username);
 		this.password = password;
-		this.profile = new Profile(username);
 		this.friends = new ArrayList<User>();
 		this.invitations = new ArrayList<User>();
 		this.feed = new Feed(this);
@@ -30,7 +25,7 @@ public class User implements Serializable
 
 	boolean access (ArrayList <User> users, ArrayList <Message> messages)
 	{
-		System.out.println("  [Usu√°rio: " + this.getUsername() + "]");
+		System.out.println("  [Usu·rio: " + this.getId() + "]");
 		System.out.print("  Selecione:" +
 					   "\n    1) Mostrar;" +			
 					   "\n    2) Vizualizar \"feed\";" +
@@ -59,19 +54,14 @@ public class User implements Serializable
 				case 8: changeUsername(users); return true;
 				case 9: changePassword(); return false;	
 				case 10: remove(users, messages); return false;
-				default: System.out.println("    Op√ß√£o inexistente!"); return true;
+				default: System.out.println("    Op√ß„o inexistente!"); return true;
 			}
 		}
 		catch (Exception exception)
 		{
-				System.out.println("    Valor inv√°lido!");
+				System.out.println("    Valor inv·lido!");
 		}
 		return true;
-	}
-
-	String getUsername ()
-	{
-		return username;
 	}
 
 	boolean checkPassword (String password)
@@ -84,11 +74,6 @@ public class User implements Serializable
 		return friends;
 	}
 	
-	Feed getFeed ()
-	{
-		return feed;
-	}
-	
 	static User searchUser (String username, ArrayList <User> users)
 	{
 		Iterator <User> iterator = users.iterator();
@@ -97,7 +82,7 @@ public class User implements Serializable
 	    while (iterator.hasNext())
 	    {
 	    	user = iterator.next();
-	    	if (username.equals(user.getUsername())) return user;
+	    	if (username.equals(user.getId())) return user;
 	    }
 		return null;
 	}
@@ -109,13 +94,13 @@ public class User implements Serializable
 			return false;
 
 		final User other = (User) object;
-		return this.username.equals(other.username);
+		return this.id.equals(other.id);
 	}
 
 	@Override
 	public String toString ()
 	{
-		return "@" + username +
+		return "@" + id +
 		" Amigos[" + friends.size() + "] " +
 					 profile.toString();
 	}
@@ -134,7 +119,7 @@ public class User implements Serializable
 			System.out.println("    Username indispon√≠vel!");
 			return;
 		}
-		this.username = username;
+		this.id = username;
 		System.out.println("    Username alterado!");
 	}
 	
@@ -152,10 +137,10 @@ public class User implements Serializable
 	
 	void remove (ArrayList <User> users, ArrayList <Message> messages)
 	{
-		System.out.print("    Confirme digitando \"" + this.getUsername() + "\" novamente: ");
-		if (!this.getUsername().equals(Main.read.nextLine()))
+		System.out.print("    Confirme digitando \"" + this.getId() + "\" novamente: ");
+		if (!this.getId().equals(Main.read.nextLine()))
 		{
-			System.out.println("    Conta de usu√°rio n√£o removida!");
+			System.out.println("    Conta de usu·rio n„o removida!");
 			return;
 		}
 		users.forEach(user ->
@@ -178,28 +163,28 @@ public class User implements Serializable
 		}
 		
 		users.remove(this);
-		System.out.println("    Conta de usu√°rio removida!");
+		System.out.println("    Conta de usu·rio removida!");
 	}
 	
 	private void sendInvitation (ArrayList<User> users)
 	{
 		System.out.print("    Username do convidado: ");
 		String username = Main.read.nextLine();
-		if (username.equals(this.getUsername()))
+		if (username.equals(this.getId()))
 		{
-			System.out.println("    Opera√ß√£o inv√°lida!");
+			System.out.println("    Opera√ß„o inv·lida!");
 			return;
 		}
 		
 		User user = searchUser(username, users);
 		if (user == null)
 		{
-			System.out.println("    Usu√°rio n√£o encontrado!");
+			System.out.println("    Usu·rio n„o encontrado!");
 			return;
 		}
 		if (friends.contains(user))
 		{
-			System.out.println("    @" + username + " j√° √© seu amigo!");
+			System.out.println("    @" + username + " j· È seu amigo!");
 			return;
 		}
 		user.receiveInvitation(this);
@@ -242,7 +227,7 @@ public class User implements Serializable
 	    while (iterator.hasNext())
 	    {
 	    	user = iterator.next();
-	    	System.out.print("    Aceitar convite de " + user.getUsername() + "? >> ");
+	    	System.out.print("    Aceitar convite de " + user.getId() + "? >> ");
     		answer = Main.read.nextLine().toLowerCase().charAt(0);
     		if (answer == 's')
     		{
@@ -261,16 +246,16 @@ public class User implements Serializable
 	
 	static void showUsersIn (ArrayList <User> users)
 	{
-		users.forEach(user -> System.out.println("  @" + user.getUsername()));
+		users.forEach(user -> System.out.println("  @" + user.getId()));
 	}
 	
 	private void sendMessage (ArrayList <User> users, ArrayList <Message> messages)
 	{
-		System.out.print("    Destinat√°rio: ");
+		System.out.print("    Destinat·rio: ");
 		User user = searchUser(Main.read.nextLine(), users);
 		if (user == null)
 		{
-			System.out.println("    Usu√°rio n√£o encontrado!");
+			System.out.println("    Usu·rio n„o encontrado!");
 			return;
 		}
 		System.out.print("    Mensagem: ");
@@ -290,7 +275,7 @@ public class User implements Serializable
 	    while (iterator.hasNext())
 	    {
 	    	user = iterator.next();
-	    	System.out.println("    @" + user.getUsername());
+	    	System.out.println("    @" + user.getId());
 	    }
 	}
 
