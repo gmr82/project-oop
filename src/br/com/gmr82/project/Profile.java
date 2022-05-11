@@ -7,47 +7,33 @@ import java.util.Iterator;
 public class Profile implements Serializable
 {
 	private static final long serialVersionUID = -5167574187842926423L;
-
-	private String name;
-
-	private ArrayList <Attribute> others;
+	private ArrayList <Attribute> attributes;
+	
 	
 	Profile (String name)
 	{
-		this.others = new ArrayList <Attribute> ();
-		this.name = name;
+		this.attributes = new ArrayList <Attribute> ();
+		Attribute attribute = new Attribute("Nome");
+		attribute.setValue(name);
+		attributes.add(attribute);
 	}
 
-	String getName ()
+	boolean access ()
 	{
-		return name;
-	}
-
-	void setName (String name)
-	{
-		this.name = name;
-	}
-	
-	void show ()
-	{
-		System.out.println(this.toString());
-	}
-	
-	boolean edit ()
-	{
-		System.out.print("    Selecione:                          [Edição de perfil: " + this.getName() + "]" +
-				"\n      1) Alterar nome;" +
+		System.out.println("    [Perfil]");
+		System.out.print("    Selecione:" +
+				"\n      1) Mostrar atributos;" +
 				"\n      2) Adicionar atributo;" +
 				"\n      3) Alterar atributo;" +
 				"\n      4) Remover atributo;" +
-				"\n      0) Sair." +
+				"\n      0) Voltar." +
 				"\n      >> ");
 		try 
 		{
 			switch(Integer.parseInt(Main.read.nextLine()))
 			{
 				case 0: return false;
-				case 1: changeName (); return true;
+				case 1: show(); return true;
 				case 2: createAttribute(); return true;
 				case 3: changeAttribute(); return true;
 				case 4: deleteAttribute(); return true;
@@ -64,27 +50,22 @@ public class Profile implements Serializable
 	@Override
 	public String toString ()
 	{
-		String text = "[Nome: " + name;
+		if (attributes.isEmpty())
+		{
+			return "{}";
+		}
 		
-		Iterator <Attribute> iterator = others.iterator();
+		String text = "{";
+		
+		Iterator <Attribute> iterator = attributes.iterator();
 
 		Attribute attribute;
 	    while (iterator.hasNext())
 	    {
 	    	attribute = iterator.next();
-	    	text += ", " + attribute.getKey() + ": " + attribute.getValue();
+	    	text += attribute.getKey() + ": " + attribute.getValue() + ", ";
 	    }
-		
-		text += "]";
-		return text;
-	}
-	
-	private void changeName ()
-	{
-		System.out.print("        Atual: " + this.getName() +
-				       "\n        Novo: ");
-		this.setName(Main.read.nextLine());
-		System.out.println("        Nome alterado!");
+		return text.substring(0, text.length() - 2) + "}";
 	}
 
 	private void createAttribute ()
@@ -93,7 +74,7 @@ public class Profile implements Serializable
 		Attribute attribute = new Attribute(Main.read.nextLine());
 		System.out.print("        Valor: ");
 		attribute.setValue(Main.read.nextLine());
-		others.add(attribute);
+		attributes.add(attribute);
 		System.out.println("        Atributo adicionado!");
 	}
 	
@@ -113,7 +94,7 @@ public class Profile implements Serializable
 	
 	private Attribute searchAttribute (String key)
 	{
-		Iterator <Attribute> iterator = others.iterator();
+		Iterator <Attribute> iterator = attributes.iterator();
 		Attribute attribute;
 	    
 	    while (iterator.hasNext())
@@ -134,7 +115,7 @@ public class Profile implements Serializable
 			return;
 		}
 		
-		Iterator <Attribute> iterator = others.iterator();
+		Iterator <Attribute> iterator = attributes.iterator();
 	    
 	    while (iterator.hasNext())
 	    {
@@ -147,5 +128,10 @@ public class Profile implements Serializable
 	    }
 	}
 
+	private void show ()
+	{
+		System.out.println("      " + this.toString());
+	}
+	
 	
 }

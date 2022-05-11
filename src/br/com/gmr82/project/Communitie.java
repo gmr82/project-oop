@@ -7,7 +7,7 @@ public class Communitie
 	String id;
 	User owner;
 	Profile profile;
-	ArrayList <String> members;
+	ArrayList <User> members;
 	Feed feed;
 	
 	
