@@ -1,12 +1,11 @@
 package br.com.gmr82.project; 
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class Communitie extends Entity implements Serializable
+public class Communitie extends Entity
 {
-	private static final long serialVersionUID = 4998339587315452403L;
+	//private static final long serialVersionUID = 4998339587315452403L;
 	private User owner;
 	ArrayList <User> members;
 	
@@ -26,7 +25,6 @@ public class Communitie extends Entity implements Serializable
 	{
 		this.owner = owner;
 	}
-
 	
 	
 }

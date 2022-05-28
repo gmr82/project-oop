@@ -1,13 +1,12 @@
 package br.com.gmr82.project;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 
-public class User extends Entity implements Serializable
+public class User extends Entity
 {	
-	private static final long serialVersionUID = -7376693414257860736L;
+	//private static final long serialVersionUID = -7376693414257860736L;
 	private String password;
 	private ArrayList <User> friends;
 	private ArrayList <User> invitations;
@@ -25,7 +24,7 @@ public class User extends Entity implements Serializable
 
 	boolean access (ArrayList <User> users, ArrayList <Message> messages)
 	{
-		System.out.println("  [Usu·rio: " + this.getId() + "]");
+		System.out.println("  [Usu√°rio: " + this.getId() + "]");
 		System.out.print("  Selecione:" +
 					   "\n    1) Mostrar;" +			
 					   "\n    2) Vizualizar \"feed\";" +
@@ -54,12 +53,12 @@ public class User extends Entity implements Serializable
 				case 8: changeUsername(users); return true;
 				case 9: changePassword(); return false;	
 				case 10: remove(users, messages); return false;
-				default: System.out.println("    Op√ß„o inexistente!"); return true;
+				default: System.out.println("    Op√ß√£o inexistente!"); return true;
 			}
 		}
 		catch (Exception exception)
 		{
-				System.out.println("    Valor inv·lido!");
+				System.out.println("    Valor inv√°lido!");
 		}
 		return true;
 	}
@@ -140,7 +139,7 @@ public class User extends Entity implements Serializable
 		System.out.print("    Confirme digitando \"" + this.getId() + "\" novamente: ");
 		if (!this.getId().equals(Main.read.nextLine()))
 		{
-			System.out.println("    Conta de usu·rio n„o removida!");
+			System.out.println("    Conta de usu√°rio n√£o removida!");
 			return;
 		}
 		users.forEach(user ->
@@ -163,7 +162,7 @@ public class User extends Entity implements Serializable
 		}
 		
 		users.remove(this);
-		System.out.println("    Conta de usu·rio removida!");
+		System.out.println("    Conta de usu√°rio removida!");
 	}
 	
 	private void sendInvitation (ArrayList<User> users)
@@ -172,19 +171,19 @@ public class User extends Entity implements Serializable
 		String username = Main.read.nextLine();
 		if (username.equals(this.getId()))
 		{
-			System.out.println("    Opera√ß„o inv·lida!");
+			System.out.println("    Opera√ß√£o inv√°lida!");
 			return;
 		}
 		
 		User user = searchUser(username, users);
 		if (user == null)
 		{
-			System.out.println("    Usu·rio n„o encontrado!");
+			System.out.println("    Usu√°rio n√£o encontrado!");
 			return;
 		}
 		if (friends.contains(user))
 		{
-			System.out.println("    @" + username + " j· È seu amigo!");
+			System.out.println("    @" + username + " j√° √© seu amigo!");
 			return;
 		}
 		user.receiveInvitation(this);
@@ -251,11 +250,11 @@ public class User extends Entity implements Serializable
 	
 	private void sendMessage (ArrayList <User> users, ArrayList <Message> messages)
 	{
-		System.out.print("    Destinat·rio: ");
+		System.out.print("    Destinat√°rio: ");
 		User user = searchUser(Main.read.nextLine(), users);
 		if (user == null)
 		{
-			System.out.println("    Usu·rio n„o encontrado!");
+			System.out.println("    Usu√°rio n√£o encontrado!");
 			return;
 		}
 		System.out.print("    Mensagem: ");

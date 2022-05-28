@@ -22,10 +22,10 @@ class SocialNet implements Serializable
 	{
 		System.out.println("[Rede Social]");
 		System.out.print("Selecione:" +
-						"\n  1) Acessar conta de usu�rio;" +
-						"\n  2) Listar usu�rios;" +
-						"\n  3) Criar conta de usu�rio;" +
-						"\n  4) Pesquisar conta de usu�rio;" + 
+						"\n  1) Acessar conta de usuário;" +
+						"\n  2) Listar usuários;" +
+						"\n  3) Criar conta de usuário;" +
+						"\n  4) Pesquisar conta de usuário;" + 
 						"\n  5) Listar mensagens;" +
 						"\n  0) Sair." +
 						"\n  >> ");
@@ -40,12 +40,12 @@ class SocialNet implements Serializable
 				case 3: createUserAccount(); return true;
 				case 4: searchUser(); return true;
 				case 5: listMessages(); return true;
-				default: System.out.println("  Opç�o inexistente!"); return true;
+				default: System.out.println("  Opção inexistente!"); return true;
 			}
 		}
 		catch (Exception exception)
 		{
-			System.out.println("  Valor inv�lido!");
+			System.out.println("  Valor inválido!");
 			return true;
 		}
 	}
@@ -57,7 +57,7 @@ class SocialNet implements Serializable
 
 	private void createUserAccount ()
 	{
-		System.out.print("# Criar conta de usu�rio #" +
+		System.out.print("# Criar conta de usuário #" +
 					   "\n  Username: ");
 		String username = Main.read.nextLine();
 		
@@ -71,15 +71,15 @@ class SocialNet implements Serializable
 		
 		users.add(user);
 		
-		System.out.println("  Conta de usu�rio criada!");
+		System.out.println("  Conta de usário criada!");
 		
 		while(user.access(users, messages));
 	}
 	
 	private void listUsers ()
 	{
-		System.out.println("# Listar usu�rios #" +
-						 "\n                    Total: " + users.size() + " usu�rio(s).");
+		System.out.println("# Listar usuários #" +
+						 "\n                    Total: " + users.size() + " usuário(s).");
 		User.showUsersIn(users);
 		
 		/*
@@ -104,12 +104,12 @@ class SocialNet implements Serializable
     
 	private void searchUser ()
 	{
-		System.out.print("# Pesquisar conta de usu�rio #" +
+		System.out.print("# Pesquisar conta de usuário #" +
 			   "\n  Username: ");
 		User user = searchUser(Main.read.nextLine());
 		if (user == null)
 		{
-			System.out.println("  Usu�rio n�o encontrado!");
+			System.out.println("  Usuário não encontrado!");
 			return;
 		}
 		System.out.println("  " + user.toString());
@@ -122,19 +122,19 @@ class SocialNet implements Serializable
 	
 	private void accessUserAccount ()
 	{
-		System.out.print("# Acessar conta de usu�rio #" +
+		System.out.print("# Acessar conta de usuário #" +
 				   "\n  Username: ");
 		User user = User.searchUser(Main.read.nextLine(), users);
 		if (user == null)
 		{
-			System.out.println("  Usu�rio n�o encontrado!");
+			System.out.println("  Usuário não encontrado!");
 			return;
 		}
 		
 		System.out.print("  Senha de " + user.getId() + ": ");	
 		if (!user.checkPassword(Main.read.nextLine()))
 		{
-			System.out.println("  Senha inv�lida!");
+			System.out.println("  Senha inválida!");
 			return;
 		}
 		
