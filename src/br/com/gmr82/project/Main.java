@@ -10,8 +10,7 @@ import java.io.ObjectOutputStream;
 
 public class Main
 {
-	
-	private String filePath = "others/socialnet";
+	private String filePath = "others/bkp";
 	private FileInputStream fis;
 	private ObjectInputStream ois;
 	private FileOutputStream fos;
